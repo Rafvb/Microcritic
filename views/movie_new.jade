@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  h1= title
+
+  div.back
+    a(href="/")!= "Back to index"
+
+  form( method="post")
+    div
+      div
+        span IMDB id :
+          input(type="text", name="imdbId", id="editMovieImdbId")
+        span Review :
+          input(type="text", name="body", id="editBody", maxlength="255")
+        span Author :
+          input(type="text", name="author", id="editAuthor")
+        span Rating :
+          input(type="checkbox", name="good", id="editGood")
+        div#editMovieSubmit
+          input(type="submit", value="Send")

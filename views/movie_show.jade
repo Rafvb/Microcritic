@@ -1,0 +1,30 @@
+extends layout
+
+block content
+  h1= title
+  
+  div.back
+    a(href="/")!= "Back to index"
+
+  div.movie_details
+    div.movie_details_text
+      div.movie_created_at= movie.createdAt
+      div.movie_title= movie.title
+      div.movie_director= movie.director
+      div.movie_year= movie.year
+    img(class="movie_img", src=movie.poster)
+  
+  div.imdb_link
+    a(href="http://www.imdb.com/title/"+movie.imdbId)!= "View IMDB information"
+
+  div.reviews
+    - each review in movie.reviews
+      div.review
+        if review.good
+          img(class="review_img", src='/images/good.png')
+        else
+          img(class="review_img", src='/images/not_good.png')
+        div.review_details
+          div.review_title= review.title
+          div.review_body= review.body
+          div.review_author= review.author

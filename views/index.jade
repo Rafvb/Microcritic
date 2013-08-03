@@ -1,0 +1,27 @@
+extends layout
+
+block content
+  h1= title
+  
+  div.movie_new
+    a(href="/movies/new")!= "Add a new movie"
+  
+  #movies
+    - each movie in movies
+      div.movie
+        div.movie_details
+          div.movie_details_text
+            div.movie_created_at= movie.created_at
+            div.movie_title 
+                a(href="/movie/"+movie.imdbId)!= movie.title
+          img(class="movie_img", src=movie.poster)
+        div.reviews
+          - each review in movie.reviews
+            div.review
+              if review.good
+                img(class="review_img", src='/images/good.png')
+              else
+                img(class="review_img", src='/images/not_good.png')
+              div.review_details
+                div.review_body= review.body
+                div.review_author= review.author
