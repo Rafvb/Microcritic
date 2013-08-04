@@ -2,7 +2,7 @@ var mongoose = require('mongoose')
   , Movie = require('../models/movie.js');
 
 var connectionString = process.env.CUSTOMCONNSTR_MONGOLAB_URI;
-connectionString = 'mongodb://localhost/microcritic_dev';
+connectionString = 'mongodb://rafvb:rafvb@dharma.mongohq.com:10099/Microcritic';
 
 mongoose.connect(connectionString);
 
@@ -58,7 +58,7 @@ ReviewProvider.prototype.save = function(reviews, callback) {
     
     var movieInstance = new Movie(review);
 
-	movieInstance.save(function (err, movieInstance) {
+    movieInstance.save(function (err, movieInstance) {
       if (err){
         console.log(err);
       }
