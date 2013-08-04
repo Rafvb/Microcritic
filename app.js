@@ -13,8 +13,7 @@ var express = require('express')
   , movieRoutes = require('./routes/movieroutes')
   , http = require('http')
   , path = require('path')
-
-var app = express();
+  , app = express();
 
 // all environments
 app.set('port', process.env.PORT || 3000);

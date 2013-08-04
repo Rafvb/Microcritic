@@ -1,6 +1,5 @@
-var ReviewProvider = require('./reviewprovider').ReviewProvider;
-
-var reviewProvider = new ReviewProvider();
+var ReviewProvider = require('../providers/reviewprovider').ReviewProvider
+  , reviewProvider = new ReviewProvider();
 
 exports.index = function(req, res){
 	reviewProvider.findAll(function(error, movies){

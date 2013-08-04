@@ -1,8 +1,8 @@
-var ReviewProvider = require('./reviewprovider').ReviewProvider;
-var reviewProvider = new ReviewProvider();
-
-var MovieDataProvider = require('./moviedataprovider').MovieDataProvider;
-var movieDataProvider = new MovieDataProvider();
+var ReviewProvider = require('../providers/reviewprovider').ReviewProvider
+  , reviewProvider = new ReviewProvider()
+  
+  , MovieDataProvider = require('../providers/moviedataprovider').MovieDataProvider
+  , movieDataProvider = new MovieDataProvider();
 
 /* 
 	Show (movie/:id)
