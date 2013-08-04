@@ -2,7 +2,7 @@ var mongoose = require('mongoose')
   , Movie = require('../models/movie.js');
 
 var connectionString = process.env.CUSTOMCONNSTR_MONGOLAB_URI;
-connectionString = 'mongodb://rafvb:rafvb@dharma.mongohq.com:10099/Microcritic';
+// connectionString = 'mongodb://rafvb:rafvb@dharma.mongohq.com:10099/Microcritic';
 
 mongoose.connect(connectionString);
 
