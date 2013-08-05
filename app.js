@@ -8,12 +8,20 @@
  http://www.themoviedb.org/
  */
  
-var express = require('express')
-  , routes = require('./routes')
-  , movieRoutes = require('./routes/movieroutes')
+var express = require('express')  
+
+  , mongoose = require('mongoose')
+  , connectionString = 'mongodb://rafvb:rafvb@dharma.mongohq.com:10099/Microcritic'
+  
   , http = require('http')
   , path = require('path')
-  , app = express();
+  , app = express()  
+  
+  , DummyDataBootstrapper = require('./dummydata/dummydatabootstrapper').DummyDataBootstrapper
+  , dummyDataBootstrapper = new DummyDataBootstrapper()
+  
+  , routes = require('./routes')
+  , movieRoutes = require('./routes/movieroutes');
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -37,6 +45,10 @@ app.get('/', routes.index);
 app.get('/movie/:imdbId', movieRoutes.show);
 app.get('/movies/new', movieRoutes.new);
 app.post('/movies/new', movieRoutes.create);
+
+mongoose.connect(connectionString);
+
+dummyDataBootstrapper.bootstrap();
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
