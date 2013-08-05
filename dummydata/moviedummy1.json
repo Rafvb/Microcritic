@@ -1,0 +1,12 @@
+{
+  "imdbId": "tt0054215", 
+  "title": "Psycho", 
+  "director": "Alfred Hitchcock", 
+  "year": 1960, 
+  "poster": "http://ia.media-imdb.com/images/M/MV5BMTgyNDIxNzQ4MF5BMl5BanBnXkFtZTYwMzkyNTQ2._V1_SX300.jpg", 
+  "reviews": [{
+    "body": "test1", 
+    "author": "Raf", 
+    "good": true
+  }]
+}
