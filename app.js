@@ -45,6 +45,7 @@ app.get('/', routes.index);
 app.get('/movie/:imdbId', movieRoutes.show);
 app.get('/movies/new', movieRoutes.new);
 app.post('/movies/new', movieRoutes.create);
+app.post('/movie/:imdbId', movieRoutes.addReview);
 
 mongoose.connect(connectionString);
 

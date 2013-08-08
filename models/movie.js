@@ -3,7 +3,7 @@ var mongoose = require('mongoose')
 
 var MovieSchema = new Schema({
   date : { type: Date, default: Date.now },
-  imdbId    : String, 
+  imdbId    : { type: String, unique: true }, 
   title     : String, 
   director  : String, 
   year      : Number, 

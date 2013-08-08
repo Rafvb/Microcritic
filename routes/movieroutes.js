@@ -36,22 +36,32 @@ exports.new = function(req, res) {
 };
 
 exports.create = function(req, res) {
-  movieDataProvider.getMovieData(req.param('imdbId'), function(error, movieData) {
-    var newReview = {
-      imdbId: movieData.imdbId,
-      title: movieData.title,
-      director: movieData.director,
-      year: movieData.year,
-      poster: movieData.poster,
-      reviews: [{
-        body: req.param('body'),
-        author: req.param('author'),
-        good: req.param('good')
-      }]
-    };
-    
-    reviewProvider.save(newReview, function(error, review) {
+  var review = {
+    imdbId: req.param('imdbId'),
+    reviews: [{
+      body: req.param('body'),
+      author: req.param('author'),
+      good: req.param('good')
+    }]
+  };
+  
+  movieDataProvider.addMovieData(review, function(error, review) {    
+    reviewProvider.save(review, function(error, review) {
       res.redirect('/movie/' + review.imdbId);
     });
+  });
+};
+
+
+exports.addReview = function(req, res) {
+  var imdbId = req.param('imdbId');  
+  var review = {
+    body: req.param('body'),
+    author: req.param('author'),
+    good: req.param('good')
+  };
+  
+  reviewProvider.addReviewToMovie(imdbId, review, function(error, review) {
+    res.redirect('/movie/' + imdbId);
   });
 };
