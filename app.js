@@ -15,22 +15,28 @@ var express = require('express')
   
   , http = require('http')
   , path = require('path')
-  , app = express()  
+  , app = express() 
   
-  , DummyDataBootstrapper = require('./dummydata/dummydatabootstrapper').DummyDataBootstrapper
-  , dummyDataBootstrapper = new DummyDataBootstrapper()
+  , passport = require('passport')
+  , LocalStrategy = require('passport-local').Strategy
+  , User = require('./models/user')
   
-  , routes = require('./routes')
-  , movieRoutes = require('./routes/movieroutes');
+  , dummyDataBootstrapper = require('./dummydata/dummydatabootstrapper')  
+  , routesLoader = require('./infrastructure/routesloader');
 
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
+
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(app.router);
 app.use(require('stylus').middleware(__dirname + '/public'));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -40,12 +46,34 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/', routes.index);
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    User.findOne({ username: username }, function(err, user) {
+      if (err) { 
+        return done(err); 
+      }
+      if (!user) {
+        return done(null, false, { message: 'Incorrect username.' });
+      }
+      if (!user.comparePassword(password)) {
+        return done(null, false, { message: 'Incorrect password.' });
+      }
+      return done(null, user);
+    });
+  }
+));
 
-app.get('/movie/:imdbId', movieRoutes.show);
-app.get('/movies/new', movieRoutes.new);
-app.post('/movies/new', movieRoutes.create);
-app.post('/movie/:imdbId', movieRoutes.addReview);
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function (err, user) {
+    done(err, user);
+  });
+});
+
+routesLoader.init(app);
 
 mongoose.connect(connectionString);
 

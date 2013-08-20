@@ -2,17 +2,17 @@ var mongoose = require('mongoose')
   , Schema = mongoose.Schema;
 
 var MovieSchema = new Schema({
-  date : { type: Date, default: Date.now },
-  imdbId    : { type: String, unique: true }, 
-  title     : String, 
-  director  : String, 
-  year      : Number, 
-  poster    : String, 
-  reviews   : [{ 
-    date      : { type: Date, default: Date.now },
-    body      : String, 
-    author    : String,
-    good      : Boolean
+  date: { type: Date, default: Date.now },
+  imdbId: { type: String, unique: true }, 
+  title: String, 
+  director: String, 
+  year: Number, 
+  poster: String, 
+  reviews: [{ 
+    date: { type: Date, default: Date.now },
+    body: String, 
+    author: String,
+    good: Boolean
   }]
 });
 

@@ -14,7 +14,7 @@ var ReviewProvider = require('../providers/reviewprovider').ReviewProvider
 	Index (/)
 */
 
-exports.show = function(req, res) {
+var showReview = function(req, res) {
 	reviewProvider.findByImdbId(req.params.imdbId, function(error, movies) {
     var movie = movies[0];
       
@@ -29,13 +29,13 @@ exports.show = function(req, res) {
 	});
 };
 
-exports.new = function(req, res) {	
+var newReview = function(req, res) {	
   res.render('movie_new.jade', {
     title: 'New movie'
   });
 };
 
-exports.create = function(req, res) {
+var createReview = function(req, res) {
   var review = {
     imdbId: req.param('imdbId'),
     reviews: [{
@@ -53,7 +53,7 @@ exports.create = function(req, res) {
 };
 
 
-exports.addReview = function(req, res) {
+var addReview = function(req, res) {
   var imdbId = req.param('imdbId');  
   var review = {
     body: req.param('body'),
@@ -64,4 +64,11 @@ exports.addReview = function(req, res) {
   reviewProvider.addReviewToMovie(imdbId, review, function(error, review) {
     res.redirect('/movie/' + imdbId);
   });
+};
+
+exports.init = function(app) {
+  app.get('/movie/:imdbId', showReview);
+  app.get('/movies/new', newReview);
+  app.post('/movies/new', createReview);
+  app.post('/movie/:imdbId', addReview);
 };
