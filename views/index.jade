@@ -3,16 +3,6 @@ extends layout
 block content
   h1= title
   
-  form(action="/login", method="post")
-    div
-      span Username :
-        input(type="text", name="username")
-    div
-      span Password :
-        input(type="password", name="password")
-    div
-      input(type="submit", value="Send")
-  
   div.movie_new
     a(href="/movies/new")!= "Add a new movie"
   

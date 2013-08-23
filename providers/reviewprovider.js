@@ -18,10 +18,6 @@ ReviewProvider.prototype.findByImdbId = function(imdbId, callback) {
 ReviewProvider.prototype.save = function(review, callback) {    
   var movieInstance = new Movie(review);
 
-  console.log('Saving the following item: ');
-  console.log(review);
-  console.log('');
-  
   movieInstance.save(function(err, movieInstance) {
     if (err) {
       console.log(err);
