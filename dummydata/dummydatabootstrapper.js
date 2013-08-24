@@ -15,13 +15,13 @@ exports.bootstrap = function() {
     fs.readFile('./dummydata/moviedummy2.json', 'utf8', saveDummyMovie);
   });
 
-  var user = new User({ username: 'rafvb', email: 'rafvanbaelen@gmail.com', password: 'rafvb' });
-  user.save(function(err) {
-    if(err) {
-      console.log(err);
-    } else {
-      console.log('user: ' + user.username + " saved.");
-    }
+  User.remove({}, function(err) {
+    var user = new User({ username: 'rafvb', email: 'rafvanbaelen@gmail.com', password: 'rafvb' });
+    user.save(function(err) {
+      if(err) {
+        console.log(err);
+      }
+    });
   });
 };
 

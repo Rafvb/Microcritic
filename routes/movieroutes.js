@@ -17,11 +17,7 @@ var ReviewProvider = require('../providers/reviewprovider').ReviewProvider
 var showReview = function(req, res) {
 	reviewProvider.findByImdbId(req.params.imdbId, function(error, movies) {
     var movie = movies[0];
-      
-    console.log('Showing the following item: ');
-    console.log(movie);
-    console.log('');
-      
+
     res.render('movie_show.jade', {
       title: movie.title,
       movie: movie
