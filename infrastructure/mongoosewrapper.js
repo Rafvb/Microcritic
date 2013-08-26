@@ -1,7 +1,7 @@
 var mongoose = require('mongoose')
-  , connectionString = 'mongodb://rafvb:rafvb@dharma.mongohq.com:10099/Microcritic';
+  , config = require('../infrastructure/config.js');
   
 exports.init = function initMongoose()
 {
-  mongoose.connect(connectionString);  
+  mongoose.connect(config.connection_string);  
 };
